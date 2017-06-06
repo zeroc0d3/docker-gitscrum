@@ -1,6 +1,6 @@
 FROM php:7-fpm
 
-MAINTAINER Renato Marinho <renato.marinho@s2move.com>
+LABEL maintainer "Renato Marinho <renato.marinho@s2move.com>"
 
 RUN apt-get update
 
