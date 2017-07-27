@@ -9,13 +9,16 @@ RUN apt-get install -y npm \
 	libcurl4-gnutls-dev \
 	libmcrypt-dev  \
 	libicu-dev \
+    zip \
+    unzip \
 	&& docker-php-ext-install pdo_mysql \
 	&& docker-php-ext-install iconv \
 	&& docker-php-ext-install mcrypt \
 	&& docker-php-ext-install intl \
 	&& docker-php-ext-install opcache \
 	&& docker-php-ext-install mbstring \
-  && docker-php-ext-install curl
+    && docker-php-ext-install curl \
+    && docker-php-ext-install zip
 
 # Install Composer
 ENV COMPOSER_HOME /composer
