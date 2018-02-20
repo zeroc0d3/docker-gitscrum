@@ -81,7 +81,7 @@ docker inspect 64a3cd97eec2 | grep IPAddress
 * Using MySQL
 ```
 System   : MySQL
-Server   : 172.24.0.2
+Server   : 172.24.0.2          # "IPAddress": "172.24.0.2"
 Username : gitscrum_user
 Password : gitscrum_password
 Database : gitscrum_mysql
@@ -90,7 +90,7 @@ Database : gitscrum_mysql
 * Using MariaDB
 ```
 System   : MySQL
-Server   : 172.24.0.2
+Server   : 172.24.0.2          # "IPAddress": "172.24.0.2"
 Username : gitscrum_user
 Password : gitscrum_password
 Database : gitscrum_mariadb
