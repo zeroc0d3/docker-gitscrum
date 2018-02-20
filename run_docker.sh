@@ -15,13 +15,13 @@ RECREATE_CONTAINER="0"               # (0 = disable recreate container, 1 = forc
 SKIP_BUILD="0"                       # (0 = with build process, 1 = bypass build process)
 DAEMON_MODE="0"                      # (0 = disable daemon mode, 1 = running daemon mode / background)
 
-## Using MySQL (Default) ###
-CONTAINER_PRODUCTION="nginx mysql phpfpm-gitscrum adminer"
-CONTAINER_DEVELOPMENT="nginx mysql phpfpm-gitscrum adminer"
+## Using MySQL ###
+# CONTAINER_PRODUCTION="nginx mysql phpfpm-gitscrum adminer"
+# CONTAINER_DEVELOPMENT="nginx mysql phpfpm-gitscrum adminer"
 
-## Using MariaDB ###
-# CONTAINER_PRODUCTION="nginx mariadb phpfpm-gitscrum adminer"
-# CONTAINER_DEVELOPMENT="nginx mariadb phpfpm-gitscrum adminer"
+## Using MariaDB (Default) ###
+CONTAINER_PRODUCTION="nginx mariadb phpfpm-gitscrum adminer"
+CONTAINER_DEVELOPMENT="nginx mariadb phpfpm-gitscrum adminer"
 
 export DOCKER_CLIENT_TIMEOUT=300
 export COMPOSE_HTTP_TIMEOUT=300
