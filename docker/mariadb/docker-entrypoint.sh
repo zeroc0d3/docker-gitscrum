@@ -183,6 +183,18 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 		echo 'MySQL init process done. Ready for start up.'
 		echo
 	fi
+
+  # Used by healthycheck to make sure it doesn't mistakenly report container
+  # healthy during startup
+  # Put the password into the temporary config file
+  cat >"/healthycheck.cnf" <<EOF
+[client]
+user=healthychecker
+socket=${SOCKET}
+password=healthycheckpass
+EOF
+  chown -R mysql:mysql "$DATADIR"
+  echo "[Entrypoint] Starting MariaDB 10.3.4"
 fi
 
 exec "$@"

@@ -193,14 +193,12 @@ EOF
 	# Used by healthycheck to make sure it doesn't mistakenly report container
 	# healthy during startup
 	# Put the password into the temporary config file
-	touch /healthycheck.cnf
 	cat >"/healthycheck.cnf" <<EOF
 [client]
 user=healthychecker
 socket=${SOCKET}
 password=healthycheckpass
 EOF
-	touch /mysql-init-complete
 	chown -R mysql:mysql "$DATADIR"
 	echo "[Entrypoint] Starting MySQL 8.0.4-1.1.4"
 fi

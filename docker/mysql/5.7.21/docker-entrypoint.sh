@@ -195,21 +195,18 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 		echo 'MySQL init process done. Ready for start up.'
 		echo
 	fi
-fi
 
   # Used by healthycheck to make sure it doesn't mistakenly report container
   # healthy during startup
   # Put the password into the temporary config file
-  touch /healthycheck.cnf
   cat >"/healthycheck.cnf" <<EOF
 [client]
 user=healthychecker
 socket=${SOCKET}
 password=healthycheckpass
 EOF
-  touch /mysql-init-complete
   chown -R mysql:mysql "$DATADIR"
-echo "[Entrypoint] Starting MySQL 5.7.21"
+  echo "[Entrypoint] Starting MySQL 5.7.21"
 fi
 
 exec "$@"
