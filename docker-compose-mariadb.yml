@@ -57,12 +57,14 @@ services:
       - mariadb     # if you're using mariadb
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ${PHPFPM_CONFIG_PATH}:/usr/local/etc/php-fpm.conf      # config path
-      - ${PHPFPM_INI_PATH}:/usr/local/etc/php/php.ini          # ini path
-      - ${PHPFPM_LOG_PATH}:/var/log/phpfpm                     # log phpfpm
-      - ${WWW_DATA}:/var/www/html                              # volume for data
+      - ${PHPFPM_CONFIG_PATH}:/usr/local/etc/php-fpm.conf                         # config path
+      - ${PHPFPM_INI_PATH}:/usr/local/etc/php/php.ini                             # ini path
+      - ${PHPFPM_LOG_PATH}:/var/log/phpfpm                                        # log phpfpm
+      - ${PHP_XDEBUG_PATH}:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini    # xdebug config
+      - ${WWW_DATA}:/var/www/html                                                 # volume for data
     environment:
       - PHP_VERSION=${PHP_VERSION}
+      - XDEBUG_VERSION=${XDEBUG_VERSION}
       - DEBUG=1
     networks:
       - backend
