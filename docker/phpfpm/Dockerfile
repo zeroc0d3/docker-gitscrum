@@ -1,5 +1,5 @@
-ARG PHP_VERSION=7.1.14
-FROM php:${PHP_VERSION}-fpm
+ARG PHP7_VERSION=7.1.14
+FROM php:${PHP7_VERSION}-fpm
 
 MAINTAINER "Renato Marinho <renato.marinho@s2move.com>"
 
