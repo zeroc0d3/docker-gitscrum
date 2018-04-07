@@ -5,7 +5,7 @@ Docker containers for Laravel GitScrum
 * Change `.env.example` file to `.env` for Docker environment configuration
 
 ## Setup Docker Builder Script
-* Change docker build & running environment in `run_docker.sh` file
+* Change docker build & running environment in `run.sh` file
   - ENV="0"  # (0 = development, 1 = production)
 * Setup for containers
   - CONTAINER_PRODUCTION="nginx mysql phpfpm-gitscrum adminer"     # (using mysql database container for production environment)
@@ -24,8 +24,8 @@ Docker containers for Laravel GitScrum
 * If you're using MariaDB, change file `docker-compose-mariadb.yml` to `docker-compose.yml`
 
 ## Configuration Gitscrum Laravel
-* Open terminal in this "www" folder
-* Clone or Download Gitscrum repository inside "www" folder
+* Open terminal in this "workspace" folder
+* Clone or Download Gitscrum repository inside "workspace" folder
 ```
 git clone git@github.com:gitscrum-community-edition/laravel-gitscrum.git
 ```
@@ -33,26 +33,26 @@ git clone git@github.com:gitscrum-community-edition/laravel-gitscrum.git
 ## Running Docker
 You can run the command on your bash to run docker
 ```
-./run_docker.sh
+./run.sh
 ```
 
 ## Default Configuration
 * MySQL
 ```
-MYSQL_ROOT_PASSWORD=gitscrun_password
+MYSQL_ROOT_PASSWORD=password
 MYSQL_ROOT_HOST=localhost
 MYSQL_DATABASE=gitscrum_mysql
-MYSQL_USER=gitscrum_user
-MYSQL_PASSWORD=gitscrun_password
+MYSQL_USER=gitscrum
+MYSQL_PASSWORD=password
 MYSQL_PORT=33061
 ```
 * MariaDB
 ```
-MARIADB_ROOT_PASSWORD=gitscrun_password
+MARIADB_ROOT_PASSWORD=password
 MARIADB_ROOT_HOST=localhost
 MARIADB_DATABASE=gitscrum_mariadb
-MARIADB_USER=gitscrum_user
-MARIADB_PASSWORD=gitscrun_password
+MARIADB_USER=gitscrum
+MARIADB_PASSWORD=password
 MARIADB_PORT=33062
 ```
 
@@ -82,7 +82,7 @@ docker inspect 64a3cd97eec2 | grep IPAddress
 ```
 System   : MySQL
 Server   : 172.24.0.2          # "IPAddress": "172.24.0.2"
-Username : gitscrum_user
+Username : gitscrum
 Password : gitscrum_password
 Database : gitscrum_mysql
 ```
@@ -91,7 +91,7 @@ Database : gitscrum_mysql
 ```
 System   : MySQL
 Server   : 172.24.0.2          # "IPAddress": "172.24.0.2"
-Username : gitscrum_user
+Username : gitscrum
 Password : gitscrum_password
 Database : gitscrum_mariadb
 ```
