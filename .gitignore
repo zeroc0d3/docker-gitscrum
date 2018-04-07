@@ -1,10 +1,7 @@
+.idea
 .env
-run_docker.sh
-www/**
-log/mariadb/*.log
-log/mysql/*.log
-log/nginx/*.log
-log/php-fpm/*.log
+run.sh
+database
+log
+workspace
 docker-compose.yml
-database/mariadb/**
-database/mysql/**
