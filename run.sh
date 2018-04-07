@@ -7,21 +7,21 @@
 #  License    : MIT
 # -----------------------------------------------------------------------------
 
-TITLE="DOCKER BUILDER SCRIPT"        # script name
-VER="1.4.1"                          # script version
-ENV="0"                              # (0 = development / 1 = production)
-REMOVE_CACHE="0"                     # (0 = using cache, 1 = no-cache)
-RECREATE_CONTAINER="0"               # (0 = disable recreate container, 1 = force recreate container)
-SKIP_BUILD="0"                       # (0 = with build process, 1 = bypass build process)
-DAEMON_MODE="0"                      # (0 = disable daemon mode, 1 = running daemon mode / background)
+TITLE="GITSCRUM-DOCKER BUILDER SCRIPT"   # script name
+VER="1.4.1"                              # script version
+ENV="0"                                  # (0 = development / 1 = production)
+REMOVE_CACHE="0"                         # (0 = using cache, 1 = no-cache)
+RECREATE_CONTAINER="0"                   # (0 = disable recreate container, 1 = force recreate container)
+SKIP_BUILD="0"                           # (0 = with build process, 1 = bypass build process)
+DAEMON_MODE="0"                          # (0 = disable daemon mode, 1 = running daemon mode / background)
 
 ## Using MySQL ###
-# CONTAINER_PRODUCTION="nginx mysql phpfpm-gitscrum adminer"
-# CONTAINER_DEVELOPMENT="nginx mysql phpfpm-gitscrum adminer"
+# CONTAINER_PRODUCTION="consul phpfpm nginx mysql adminer"
+# CONTAINER_DEVELOPMENT="consul phpfpm nginx mysql adminer"
 
 ## Using MariaDB (Default) ###
-CONTAINER_PRODUCTION="nginx mariadb phpfpm-gitscrum adminer"
-CONTAINER_DEVELOPMENT="nginx mariadb phpfpm-gitscrum adminer"
+CONTAINER_PRODUCTION="consul phpfpm nginx mariadb adminer"
+CONTAINER_DEVELOPMENT="consul phpfpm nginx mariadb adminer"
 
 export DOCKER_CLIENT_TIMEOUT=300
 export COMPOSE_HTTP_TIMEOUT=300
@@ -32,30 +32,32 @@ get_time() {
 
 logo() {
   clear
-  echo "\033[22;32m==========================================================================\033[0m"
-  echo "\033[22;31m           .__  __                                      DOCKER BUILDER    \033[0m"
-  echo "\033[22;31m      ____ |__|/  |_  ______ ___________ __ __  _____   ver-$VER          \033[0m"
-  echo "\033[22;31m     / ___\|  \   __\/  ___// ___\_  __ \  |  \/     \                    \033[0m"
-  echo "\033[22;31m    / /_/  >  ||  |  \___ \\  \___|  | \/  |  /  Y Y  \                   \033[0m"
-  echo "\033[22;31m    \___  /|__||__| /____  >\___  >__|  |____/|__|_|  /                   \033[0m"
-  echo "\033[22;31m   /_____/               \/     \/                  \/                    \033[0m"
-  echo "\033[22;32m--------------------------------------------------------------------------\033[0m"
-  echo "\033[22;32m# $TITLE :: ver-$VER                                                      \033[0m"
+  echo "\033[22;32m====================================================================================\033[0m"
+  echo "\033[22;31m  :'######:::'####:'########::'######:::'######::'########::'##::::'##:'##::::'##:  \033[0m"
+  echo "\033[22;31m  '##... ##::. ##::... ##..::'##... ##:'##... ##: ##.... ##: ##:::: ##: ###::'###:  \033[0m"
+  echo "\033[22;31m   ##:::..:::: ##::::: ##:::: ##:::..:: ##:::..:: ##:::: ##: ##:::: ##: ####'####:  \033[0m"
+  echo "\033[22;31m   ##::'####:: ##::::: ##::::. ######:: ##::::::: ########:: ##:::: ##: ## ### ##:  \033[0m"
+  echo "\033[22;31m   ##::: ##::: ##::::: ##:::::..... ##: ##::::::: ##.. ##::: ##:::: ##: ##. #: ##:  \033[0m"
+  echo "\033[22;31m   ##::: ##::: ##::::: ##::::'##::: ##: ##::: ##: ##::. ##:: ##:::: ##: ##:.:: ##:  \033[0m"
+  echo "\033[22;31m  . ######:::'####:::: ##::::. ######::. ######:: ##:::. ##:. #######:: ##:::: ##:  \033[0m"
+  echo "\033[22;31m  :......::::....:::::..::::::......::::......:::..:::::..:::.......:::..:::::..::  \033[0m"
+  echo "\033[22;32m------------------------------------------------------------------------------------\033[0m"
+  echo "\033[22;32m# $TITLE :: ver-$VER                                                                \033[0m"
 }
 
 header() {
   logo
-  echo "\033[22;32m==========================================================================\033[0m"
+  echo "\033[22;32m====================================================================================\033[0m"
   get_time
-  echo "\033[22;37m# BEGIN PROCESS..... (Please Wait)  \033[0m"
-  echo "\033[22;33m# Start at: $DATE  \033[0m\n"
+  echo "\033[22;31m# BEGIN PROCESS..... (Please Wait)  \033[0m"
+  echo "\033[22;31m# Start at: $DATE  \033[0m\n"
 }
 
 footer() {
-  echo "\033[22;32m==========================================================================\033[0m"
+  echo "\033[22;32m====================================================================================\033[0m"
   get_time
-  echo "\033[22;33m# Finish at: $DATE  \033[0m"
-  echo "\033[22;37m# END PROCESS.....  \033[0m\n"
+  echo "\033[22;31m# Finish at: $DATE  \033[0m"
+  echo "\033[22;31m# END PROCESS.....  \033[0m\n"
 }
 
 build_env() {
@@ -72,7 +74,7 @@ cache() {
   then
     CACHE=""
   else
-    CACHE="--no-cache"
+    CACHE="--no-cache "
   fi
 }
 
@@ -81,7 +83,7 @@ recreate() {
   then
     RECREATE=""
   else
-    RECREATE="--force-recreate"
+    RECREATE="--force-recreate "
   fi
 }
 
@@ -90,7 +92,7 @@ daemon_mode() {
   then
     DAEMON=""
   else
-    DAEMON="-d"
+    DAEMON="-d "
   fi
 }
 
@@ -100,7 +102,7 @@ docker_build() {
     echo "--------------------------------------------------------------------------"
     get_time
     echo "\033[22;34m[ $DATE ] ##### Docker Compose: \033[0m                        "
-    echo "\033[22;32m[ $DATE ]       docker-compose build $CACHE $BUILD_ENV \033[0m\n"
+    echo "\033[22;32m[ $DATE ]       docker-compose build $CACHE$BUILD_ENV \033[0m\n"
     for CONTAINER in $BUILD_ENV
     do
       get_time
@@ -119,12 +121,12 @@ docker_up() {
   echo "--------------------------------------------------------------------------"
   get_time
   echo "\033[22;34m[ $DATE ] ##### Docker Compose Up: \033[0m                     "
-  echo "\033[22;32m[ $DATE ]       docker-compose up $RECREATE $BUILD_ENV \033[0m\n"
+  echo "\033[22;32m[ $DATE ]       docker-compose up $RECREATE$BUILD_ENV \033[0m\n  "
   get_time
   echo "--------------------------------------------------------------------------"
-  echo "\033[22;32m[ $DATE ]       docker-compose up $RECREATE $BUILD_ENV \033[0m "
+  echo "\033[22;32m[ $DATE ]       docker-compose up $RECREATE$BUILD_ENV \033[0m "
   echo "--------------------------------------------------------------------------"
-  docker-compose up $DAEMON $RECREATE $BUILD_ENV
+  docker-compose up $DAEMON $RECREATE$BUILD_ENV
   echo ""
 }
 
@@ -139,4 +141,4 @@ main() {
 }
 
 ### START HERE ###
-main
+main $@
