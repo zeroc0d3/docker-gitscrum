@@ -1,13 +1,13 @@
-ARG MYSQL_VERSION=8.0.3
-FROM mysql/mysql-server:${MYSQL_VERSION}
+ARG MYSQL8_VERSION=8.0.3
+FROM mysql/mysql-server:${MYSQL8_VERSION}
 
 MAINTAINER "ZeroC0D3 Engineer <zeroc0d3.0912@gmail.com>"
 
-ENV MYSQL_ROOT_PASSWORD="gitscrum_password" \
+ENV MYSQL_ROOT_PASSWORD="password" \
     MYSQL_ROOT_HOST="localhost" \
-    MYSQL_DATABASE="gitscrum_mysql" \
-    MYSQL_USER="gitscrum_user" \
-    MYSQL_PASSWORD="gitscrum_password"
+    MYSQL_DATABASE="laradock_mysql" \
+    MYSQL_USER="laradock" \
+    MYSQL_PASSWORD="password"
 
 VOLUME /var/lib/mysql
 

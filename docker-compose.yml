@@ -3,27 +3,25 @@ version: '3.2'
 services:
 
 #-------------------------------------------
-# MYSQL
+# MARIADB
 #-------------------------------------------
-  mysql:
+  mariadb:
     restart: always
     build:
-      context: ./docker/mysql/${MYSQL_VERSION}
+      context: ./docker/mariadb
     ports:
-      - "${MYSQL_PORT}:3306"
+      - "${MARIADB_PORT}:3306"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ${MYSQL_DATA_SAVE}:/var/lib/mysql                          # volume for data
-      - ${MYSQL_LOG_PATH}:/var/log/mysql                           # log mysql
-      - ${MYSQL_CONFIG_PATH}:/etc/my.cnf                           # my.cnf mysql
-      - ${MYSQL_DOCKER_CONFIG_PATH}:/etc/mysql/conf.d/docker.cnf   # docker.cnf mysql
+      - ${MARIADB_DATA_SAVE}:/var/lib/mysql                # volume for data
+      - ${MARIADB_LOG_PATH}:/var/log/mysql                 # log mariadb
     environment:
-      - MYSQL_VERSION=${MYSQL_VERSION}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}         # root password
-      - MYSQL_ROOT_HOST=${MYSQL_ROOT_HOST}                 # grant user hostmask (optional)
-      - MYSQL_DATABASE=${MYSQL_DATABASE}                   # create database (optional)
-      - MYSQL_USER=${MYSQL_USER}                           # grant user name (optional)
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}                   # grant user password (optional)
+      - MARIADB_VERSION=${MARIADB_VERSION}
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}     # root password
+      - MARIADB_ROOT_HOST=${MARIADB_ROOT_HOST}             # grant user hostmask (optional)
+      - MARIADB_DATABASE=${MARIADB_DATABASE}               # create database (optional)
+      - MARIADB_USER=${MARIADB_USER}                       # grant user name (optional)
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}               # grant user password (optional)
     networks:
       - backend
 
@@ -56,7 +54,7 @@ services:
     build:
       context: ./docker/phpfpm
     links:
-      - mysql     # if you're using mysql
+      - mariadb     # if you're using mariadb
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ${PHPFPM_CONFIG_PATH}:/usr/local/etc/php-fpm.conf                         # config path
@@ -97,7 +95,7 @@ networks:
 # VOLUME SETUP
 #-------------------------------------------------------------------
 volumes:
-  mysql:
+  mariadb:
     driver: "local"
   nginx:
     driver: "local"
